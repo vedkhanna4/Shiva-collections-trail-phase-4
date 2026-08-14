@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================================
+         EDIT #1: WEBSITE NAME (browser tab title)
+         Change the text below between <title> and </title>
+    ============================================================= -->
+    <title>Shiva Collections | Wholesale & Custom Shirt Manufacturing</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+<style>
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    #cart-drawer > .fixed {
+        padding-left: 0;
+    }
+    @media (max-width: 640px) {
+        #cart-drawer > .fixed {
+            width: 100%;
+        }
+        #cart-drawer > .fixed > div {
+            width: 100%;
+            max-width: 100%;
+        }
+        #cart-items {
+            padding: 1rem;
+        }
+        #cart-drawer .p-6 {
+            padding: 1rem;
+        }
+        #cart-drawer input,
+        #cart-drawer textarea,
+        #cart-drawer button {
+            min-height: 44px;
+        }
+        #product-grid {
+            gap: 1rem;
+        }
+        .moq-notice {
+            font-size: .8rem;
+            line-height: 1.35;
+        }
+    }
+    .moq-progress {
+        height: 8px;
+        border-radius: 999px;
+        background: #e5e7eb;
+        overflow: hidden;
+    }
+    .moq-progress > div {
+        height: 100%;
+        width: 0;
+        transition: width .25s ease;
+    }
+    .moq-valid { background: #16a34a; }
+    .moq-invalid { background: #2563eb; }
+
+    #cart-drawer .moq-progress {
+        height: 7px;
+    }
+    #cart-scroll-area {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+    @media (max-width: 640px) {
+        #cart-drawer > .fixed {
+            width: 100%;
+        }
+        #cart-drawer > .fixed > div {
+            width: 100%;
+            max-width: 100%;
+        }
+        #cart-scroll-area {
+            padding-bottom: 0;
+        }
+        #cart-drawer input,
+        #cart-drawer textarea,
+        #cart-drawer button {
+            min-height: 44px;
+        }
+        #submit-order-btn {
+            min-height: 52px !important;
+            font-size: 1rem;
+        }
+    }
+
+</style>
+
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="bg-brand-900 text-white text-xs py-2 text-center font-medium tracking-wide">
+        <i class="fa-solid fa-truck-fast mr-2"></i> Bulk Orders Only | Minimum Order Quantity (MOQ): 60 Pieces | Mix colours & designs to complete MOQ | Custom Stitching & Labeling Available
+    </div>
+
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+            <!-- ============================================================
+                 EDIT #2: WEBSITE NAME (logo shown in the navbar)
+                 Change "APEX" and "SHIRTS" below to your own brand name
+            ============================================================= -->
+            <a href="#" class="text-2xl font-black tracking-tight text-brand-900 flex items-center gap-2">
+                <i class="fa-solid fa-shirt text-brand-600"></i>
+                <span>SHIVA<span class="text-brand-600">COLLECTIONS</span></span>
+            </a>
+
+            <div class="hidden md:flex space-x-8 font-semibold text-sm">
+                <a href="#hero" class="hover:text-brand-600 transition">Home</a>
+                <a href="#about" class="hover:text-brand-600 transition">Manufacturing</a>
+                <a href="#catalog" class="hover:text-brand-600 transition">Wholesale Catalog</a>
+                <a href="#testimonials" class="hover:text-brand-600 transition">Testimonials</a>
+                <a href="#contact" class="hover:text-brand-600 transition">Contact</a>
+            </div>
+
+            <button type="button" onclick="toggleCart()" aria-label="Open wholesale cart" class="relative p-3 text-gray-700 hover:text-brand-600 transition">
+                <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                <span id="cart-count" class="absolute top-1 right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 text-center md:text-left">
+                <span class="bg-brand-600/30 text-blue-300 border border-brand-600/50 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Direct Factory Pricing
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                    Premium Wholesale & Custom <span class="text-blue-400">Shirt Manufacturing</span>
+                </h1>
+                <p class="text-gray-300 text-lg">
+                    We manufacture high-grade formal, casual, and denim shirts for retailers, brands, and distributors worldwide.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                    <a href="#catalog" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-8 rounded-lg shadow-lg hover:shadow-xl transition text-center">
+                        Explore Catalog
+                    </a>
+                    <a href="#about" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold py-3.5 px-8 rounded-lg transition text-center">
+                        Our Process
+                    </a>
+                </div>
+            </div>
+            <div class="relative flex justify-center">
+                <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80" alt="Shirt Manufacturing" class="rounded-2xl shadow-2xl border-4 border-white/10 object-cover max-h-[450px] w-full">
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white border-b py-8">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+                <div class="text-3xl font-extrabold text-brand-900">100k+</div>
+                <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Monthly Output</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-brand-900">100%</div>
+                <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Cotton & Premium Fabrics</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-brand-900">26+</div>
+                <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Years in Business</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-brand-900">Custom</div>
+                <div class="text-xs text-gray-500 uppercase tracking-wider font-medium">Branding & Tagging</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-brand-900">Why Partner With Our Factory?</h2>
+                <p class="text-gray-600 mt-2">End-to-end apparel manufacturing tailored to your business needs.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-scroll"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Premium Fabrics</h3>
+                    <p class="text-gray-600 text-sm">We source GIZA cotton, linen blends, oxford weave, and twill directly from top mills to guarantee durability and softness.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Private Labeling</h3>
+                    <p class="text-gray-600 text-sm">Get custom neck labels, hang tags, polybags, and engraved buttons crafted with your brand name.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Strict Quality Assurance</h3>
+                    <p class="text-gray-600 text-sm">4-stage quality check process covering pattern alignment, seam strength, color fastness, and thread trimming.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CATALOG -->
+    <section id="catalog" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-brand-900">Wholesale Collection</h2>
+                    <p class="text-gray-600 mt-2">Select items to generate your wholesale order sheet.</p>
+                </div>
+            </div>
+
+            <!-- CATEGORY TABS: Plain / Printed -->
+            <div class="flex gap-3 mb-10 border-b border-gray-200">
+                <button id="tab-plain" onclick="selectTab('Plain')" class="tab-btn px-6 py-3 font-bold text-sm border-b-2 transition">
+                    Plain Shirts
+                </button>
+                <button id="tab-printed" onclick="selectTab('Printed')" class="tab-btn px-6 py-3 font-bold text-sm border-b-2 transition">
+                    Print Shirts
+                </button>
+            </div>
+
+            <!-- Product Grid (Populated via JS, filtered by selected tab) -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold">Trusted by 500+ Clothing Brands</h2>
+                <p class="text-gray-400 mt-2">Here is what our B2B wholesale buyers say about our quality and service.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6">"The fabric quality and stitching precision are exceptional. Delivered 500 units of custom formal shirts right on schedule."</p>
+                    <div class="font-bold text-white">Ashutosh Singh</div>
+                    <div class="text-xs text-gray-400">Retail Brand Owner, India</div>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6">"Ordering via WhatsApp was effortless. Their response time and sample approvals are extremely fast. Highly recommended!"</p>
+                    <div class="font-bold text-white">Rajesh Kumar</div>
+                    <div class="text-xs text-gray-400">Boutique Chain Founder, India</div>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6">"Their linen-cotton blended shirts are our top seller this season. Excellent price-to-quality ratio for bulk purchases."</p>
+                    <div class="font-bold text-white">Swapnil Shah</div>
+                    <div class="text-xs text-gray-400">Wholesale Distributor, India</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-brand-900">Contact & Visit Us</h2>
+                <p class="text-gray-600 mt-2">26+ years of wholesale shirt manufacturing in Varanasi, led by Ved Khanna.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                    <div class="w-12 h-12 mx-auto bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Owner</div>
+                    <div class="font-bold text-gray-900">Ved Khanna</div>
+                </div>
+                <a href="tel:+919454717176" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition">
+                    <div class="w-12 h-12 mx-auto bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Phone / WhatsApp</div>
+                    <div class="font-bold text-gray-900">+91 94547 17176</div>
+                </a>
+                <a href="mailto:Shivoicollections@gmail.com" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition">
+                    <div class="w-12 h-12 mx-auto bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Email</div>
+                    <div class="font-bold text-gray-900 break-all">Shivoicollections@gmail.com</div>
+                </a>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center">
+                    <div class="w-12 h-12 mx-auto bg-blue-100 text-brand-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Address</div>
+                    <div class="font-bold text-gray-900">D59/141E, Sigra, Varanasi</div>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <a href="https://wa.me/919454717176" target="_blank" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-8 rounded-lg shadow-lg transition">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-900 text-gray-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <a href="#" class="text-2xl font-black text-white inline-block">
+                SHIVA<span class="text-brand-600">COLLECTIONS</span>
+            </a>
+            <p class="text-sm">Wholesale & Custom Apparel Manufacturing Facility &middot; 26+ Years in Business</p>
+            <p class="text-xs text-gray-500">D59/141E, Sigra, Varanasi, India &middot; +91 94547 17176 &middot; Shivoicollections@gmail.com</p>
+            <p class="text-xs text-gray-500">&copy; 2026 Shiva Collections Manufacturing. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- CART + CHECKOUT DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div onclick="toggleCart()" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+        <div class="fixed inset-y-0 right-0 w-full sm:max-w-md flex">
+            <div class="w-full bg-white shadow-2xl flex flex-col min-h-0">
+                <!-- Cart header -->
+                <div class="shrink-0 p-4 sm:p-5 bg-brand-900 text-white flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> Your Wholesale Cart
+                        </h2>
+                        <p class="text-xs text-gray-300 mt-1">Review items, then complete your order.</p>
+                    </div>
+                    <button type="button" onclick="toggleCart()" class="w-10 h-10 rounded-full bg-white/10 text-gray-200 hover:bg-white/20 hover:text-white flex items-center justify-center" aria-label="Close cart">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Scrollable cart + checkout area -->
+                <div id="cart-scroll-area" class="flex-1 overflow-y-auto min-h-0">
+                    <div id="cart-items" class="p-4 sm:p-5 space-y-4"></div>
+
+                    <div class="px-4 sm:px-5 pb-6">
+                        <div class="rounded-xl border border-blue-100 bg-blue-50 p-3 text-sm text-blue-900">
+                            <strong>MOQ: 60 units.</strong>
+                            Mix colours and designs across products to complete the MOQ.
+                            Normal products are added in sets of 3; Pre-Wash is added in a 21-piece set.
+                        </div>
+
+                        <form
+                            id="order-form"
+                            action="https://formspree.io/f/xnpazgaq"
+                            method="POST"
+                            class="mt-5 space-y-3"
+                        >
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-7 h-7 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs font-bold">1</div>
+                                <h3 class="font-bold text-gray-900">Your Details</h3>
+                            </div>
+
+                            <input type="text" name="Customer_Name" id="buyer-name"
+                                   placeholder="Full Name / Business Name *"
+                                   class="w-full px-3 py-3 border rounded-lg text-sm focus:ring-2 focus:ring-brand-600 outline-none"
+                                   autocomplete="name" required>
+
+                            <input type="tel" name="Customer_Phone" id="buyer-phone"
+                                   placeholder="Phone Number / WhatsApp *"
+                                   class="w-full px-3 py-3 border rounded-lg text-sm focus:ring-2 focus:ring-brand-600 outline-none"
+                                   autocomplete="tel" inputmode="tel" required>
+
+                            <textarea name="Delivery_Address" id="buyer-address"
+                                      placeholder="Delivery Address / City *"
+                                      class="w-full px-3 py-3 border rounded-lg text-sm focus:ring-2 focus:ring-brand-600 outline-none min-h-24"
+                                      autocomplete="street-address" required></textarea>
+
+                            <textarea name="Special_Instructions" id="buyer-notes"
+                                      placeholder="Optional: colour/design preferences, delivery timing, etc."
+                                      class="w-full px-3 py-3 border rounded-lg text-sm focus:ring-2 focus:ring-brand-600 outline-none min-h-20"></textarea>
+
+                            <input type="hidden" name="Order_Details" id="order-details">
+                            <input type="hidden" name="Total_Units" id="total-units">
+                            <input type="hidden" name="Estimated_Total_Value" id="estimated-total">
+                            <input type="hidden" name="MOQ" value="60">
+                            <input type="hidden" name="_subject" value="New Shiva Collections Wholesale Order">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sticky checkout footer: always accessible -->
+                <div class="shrink-0 bg-white border-t shadow-[0_-6px_18px_rgba(0,0,0,0.08)] p-4 sm:p-5">
+                    <div class="flex justify-between items-center text-sm mb-2">
+                        <span class="font-semibold text-gray-700">MOQ Progress</span>
+                        <span id="moq-progress-text" class="font-bold text-gray-900">0 / 60 units</span>
+                    </div>
+
+                    <div class="moq-progress mb-2">
+                        <div id="moq-progress-bar" class="moq-invalid"></div>
+                    </div>
+
+                    <div id="checkout-moq-message" class="text-xs font-semibold text-red-600 mb-3">
+                        Add enough units to reach the 60-unit MOQ.
+                    </div>
+
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-gray-900">Estimated Total</span>
+                        <span id="checkout-total" class="text-xl font-black text-brand-600">₹0.00</span>
+                    </div>
+
+                    <button
+                        type="submit"
+                        form="order-form"
+                        id="submit-order-btn"
+                        disabled
+                        class="w-full min-h-12 bg-gray-400 text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 transition disabled:cursor-not-allowed"
+                    >
+                        <i class="fa-solid fa-lock"></i> Reach 60 Units to Checkout
+                    </button>
+
+                    <p class="text-[10px] text-gray-500 text-center mt-2">
+                        Your order details will be sent securely to Shiva Collections.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Small non-blocking add-to-cart confirmation -->
+    <div id="cart-toast"
+         class="fixed left-1/2 -translate-x-1/2 bottom-5 z-[70] hidden max-w-[calc(100%-2rem)]">
+        <div class="bg-gray-900 text-white rounded-xl shadow-2xl px-4 py-3 flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center">
+                <i class="fa-solid fa-check text-xs"></i>
+            </span>
+            <div class="text-sm">
+                <div id="cart-toast-text" class="font-semibold">Added to cart</div>
+                <button type="button" onclick="toggleCart()" class="text-blue-300 hover:text-white text-xs font-bold">
+                    View Cart & Checkout →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Screen -->
+    <div id="order-success" class="fixed inset-0 z-[60] hidden bg-black/50 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-7 text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-green-100 text-green-600 flex items-center justify-center text-3xl mb-4">✓</div>
+            <h2 class="text-2xl font-extrabold text-gray-900">Order Submitted Successfully!</h2>
+            <p class="text-gray-600 mt-3 text-sm">
+                Thank you for your wholesale order. Your order has been submitted successfully.
+                You can now send a copy of your order on WhatsApp or chat with Shiva Collections about pricing, colours, designs and dispatch.
+            </p>
+
+            <a id="wa-order-btn"
+               href="#"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="mt-5 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                Send Order on WhatsApp
+            </a>
+
+            <button type="button" onclick="closeSuccess()" class="mt-3 w-full bg-brand-900 hover:bg-brand-600 text-white font-bold py-3 rounded-xl">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const WHATSAPP_NUMBER = "919454717176";
+        const TOTAL_MOQ = 60;
+
+        const products = [
+            {
+                id: 1,
+                name: "Pre- Wash 100% cotton Casual Shirt",
+                price: 720,
+                moq: "21 Pcs",
+                images: [
+                    "https://i.ibb.co/9Mf3Xw5/WASH-Print7.jpg",
+                    "https://i.ibb.co/6MJQr46/WASH-Print6.jpg",
+                    "https://i.ibb.co/PzmYLM9F/WASH-Print5.jpg",
+                    "https://i.ibb.co/wNX0f3bQ/WASH-Print3.jpg",
+                    "https://i.ibb.co/YB0LysXZ/WASH-Print2.jpg",
+                    "https://i.ibb.co/d4YJm8L4/WASH-print.jpg"
+                ],
+                category: "Printed"
+            },
+            {
+                id: 2,
+                name: "100% cotton Shirt",
+                price: 660,
+                moq: "30 Pcs",
+                images: ["https://i.ibb.co/LhdYDkP8/CL-7859.jpg"],
+                category: "Printed"
+            },
+            {
+                id: 3,
+                name: "100% Cotton Apparel Shirt",
+                price: 660,
+                moq: "30 Pcs",
+                images: ["https://i.ibb.co/8nLQx2kL/CL-7891.jpg"],
+                category: "Printed"
+            },
+            {
+                id: 4,
+                name: "Textured Shirt 100% Cotton",
+                price: 660,
+                moq: "30 Pcs",
+                images: [
+                    "https://i.ibb.co/qLrWNr73/CL-7925.jpg",
+                    "https://i.ibb.co/XZq935vv/CL-7925-2.jpg"
+                ],
+                category: "Plain"
+            },
+            {
+                id: 5,
+                name: "Self design White Shirt",
+                price: 660,
+                moq: "30 Pcs",
+                images: ["https://i.ibb.co/twXng7ff/white-2.jpg"],
+                category: "Plain"
+            },
+            {
+                id: 6,
+                name: "Floral Print Casual Shirt",
+                price: 660,
+                moq: "30 Pcs",
+                images: ["https://i.ibb.co/60ZctTDr/CL-7958.jpg"],
+                category: "Printed"
+            },
+            {
+                id: 7,
+                name: "Floral Print Shirt",
+                price: 660,
+                moq: "30 Pcs",
+                images: ["https://i.ibb.co/sdx8dBP8/CL7878.jpg"],
+                category: "Printed"
+            }
+        ];
+
+        // Every normal product is sold/added in sets of 3.
+        // Pre-Wash has its own MOQ rule from the supplied product data: 21 pieces.
+        products.forEach(p => {
+            p.setSize = p.id === 1 ? 21 : 3;
+            p.moqUnits = p.id === 1 ? 21 : 3;
+        });
+
+        let imageIndex = {};
+        products.forEach(p => { imageIndex[p.id] = 0; });
+
+        let touchStartX = 0;
+        let touchActiveId = null;
+        let cart = [];
+        let currentTab = "Plain";
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const filtered = products.filter(p => p.category === currentTab);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="text-gray-400 col-span-full text-center py-12">No shirts in this category yet.</p>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="bg-white border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden group h-64 bg-gray-100 touch-pan-y"
+                             ontouchstart="handleTouchStart(event, ${product.id})"
+                             ontouchend="handleTouchEnd(event, ${product.id})">
+                            <img id="img-${product.id}" src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover transition duration-300 select-none pointer-events-none">
+                            <span class="absolute top-3 left-3 bg-brand-900 text-white text-[10px] font-bold px-2 py-1 rounded tracking-wider uppercase">${product.category}</span>
+                            ${product.images.length > 1 ? `
+                                <button type="button" aria-label="Previous photo" onclick="prevImage(${product.id})" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center text-sm">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button type="button" aria-label="Next photo" onclick="nextImage(${product.id})" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center text-sm">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                                    ${product.images.map((img, i) => `<span class="dot-${product.id} w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-white' : 'bg-white/40'}"></span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <div class="p-5">
+                            <h3 class="font-bold text-gray-900 text-lg mb-1">${product.name}</h3>
+                            <div class="flex items-center justify-between gap-2 mt-2">
+                                <span class="text-2xl font-black text-brand-600">₹${product.price.toFixed(2)} <span class="text-xs text-gray-400 font-normal">/ unit</span></span>
+                                <span class="text-xs bg-gray-100 text-gray-600 font-semibold px-2 py-1 rounded">
+                                    Add: ${product.setSize} pcs
+                                </span>
+                            </div>
+                            <p class="mt-2 text-xs text-gray-500">
+                                You can mix colours & designs to reach the overall 60-piece MOQ.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <button onclick="addToCart(${product.id})"
+                                class="w-full bg-brand-900 hover:bg-brand-600 text-white font-semibold py-2.5 rounded-lg transition flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-cart-plus"></i> Add ${product.setSize} Pieces
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateCarouselImage(id) {
+            const product = products.find(p => p.id === id);
+            const idx = imageIndex[id];
+            const imgEl = document.getElementById(`img-${id}`);
+            if (imgEl) imgEl.src = product.images[idx];
+
+            document.querySelectorAll(`.dot-${id}`).forEach((dot, i) => {
+                dot.classList.toggle('bg-white', i === idx);
+                dot.classList.toggle('bg-white/40', i !== idx);
+            });
+        }
+
+        function nextImage(id) {
+            const product = products.find(p => p.id === id);
+            imageIndex[id] = (imageIndex[id] + 1) % product.images.length;
+            updateCarouselImage(id);
+        }
+
+        function prevImage(id) {
+            const product = products.find(p => p.id === id);
+            imageIndex[id] = (imageIndex[id] - 1 + product.images.length) % product.images.length;
+            updateCarouselImage(id);
+        }
+
+        function handleTouchStart(e, id) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchActiveId = id;
+        }
+
+        function handleTouchEnd(e, id) {
+            if (touchActiveId !== id) return;
+            const touchEndX = e.changedTouches[0].screenX;
+            const delta = touchEndX - touchStartX;
+            const SWIPE_THRESHOLD = 40;
+
+            if (delta <= -SWIPE_THRESHOLD) nextImage(id);
+            else if (delta >= SWIPE_THRESHOLD) prevImage(id);
+
+            touchActiveId = null;
+        }
+
+        function selectTab(tabName) {
+            currentTab = tabName;
+
+            const plainBtn = document.getElementById('tab-plain');
+            const printedBtn = document.getElementById('tab-printed');
+
+            [plainBtn, printedBtn].forEach(btn => {
+                btn.classList.remove('text-brand-600', 'border-brand-600');
+                btn.classList.add('text-gray-400', 'border-transparent');
+            });
+
+            const activeBtn = tabName === 'Plain' ? plainBtn : printedBtn;
+            activeBtn.classList.remove('text-gray-400', 'border-transparent');
+            activeBtn.classList.add('text-brand-600', 'border-brand-600');
+
+            renderProducts();
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden', !drawer.classList.contains('hidden'));
+        }
+
+        let cartToastTimer = null;
+
+        function showCartToast(message) {
+            const toast = document.getElementById('cart-toast');
+            const text = document.getElementById('cart-toast-text');
+
+            text.innerText = message;
+            toast.classList.remove('hidden');
+
+            clearTimeout(cartToastTimer);
+            cartToastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+
+            if (existing) {
+                existing.qty += product.setSize;
+            } else {
+                cart.push({ ...product, qty: product.setSize });
+            }
+
+            updateCart();
+
+            // IMPORTANT: Do not open the cart automatically.
+            // The customer can keep shopping and open it from the navbar cart icon
+            // or the "View Cart & Checkout" toast.
+            showCartToast(`${product.setSize} pieces of ${product.name} added to your cart.`);
+        }
+
+        function updateQty(id, deltaSets) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.qty += deltaSets * item.setSize;
+
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+
+            updateCart();
+        }
+
+        function getTotalUnits() {
+            return cart.reduce((acc, item) => acc + item.qty, 0);
+        }
+
+        function getTotalValue() {
+            return cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+        }
+
+        function buildOrderDetails() {
+            if (!cart.length) return '';
+
+            return cart.map((item, index) => {
+                const subtotal = item.price * item.qty;
+                return `${index + 1}. ${item.name} | Quantity: ${item.qty} pcs | ₹${item.price}/unit | Est. Subtotal: ₹${subtotal.toFixed(2)}`;
+            }).join('\n');
+        }
+
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+
+            const totalItems = getTotalUnits();
+            const totalValue = getTotalValue();
+
+            cartCount.innerText = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p class="text-gray-400 text-center py-12">Your cart is empty.</p>`;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between gap-3 py-3">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <img src="${item.images[0]}" alt="${item.name}" class="w-12 h-12 object-cover rounded-md shrink-0">
+                            <div class="min-w-0">
+                                <h4 class="font-bold text-sm text-gray-800 truncate">${item.name}</h4>
+                                <div class="text-xs text-gray-500">₹${item.price} × ${item.qty} pcs</div>
+                                <div class="text-[11px] text-gray-400">Added in ${item.setSize}-piece sets</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button type="button" onclick="updateQty(${item.id}, -1)" class="w-8 h-8 bg-gray-200 rounded font-bold hover:bg-gray-300" aria-label="Remove one set">−</button>
+                            <span class="text-sm font-semibold min-w-8 text-center">${item.qty}</span>
+                            <button type="button" onclick="updateQty(${item.id}, 1)" class="w-8 h-8 bg-gray-200 rounded font-bold hover:bg-gray-300" aria-label="Add one set">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            cartItemsContainer.innerHTML += `
+                <div class="pt-4 border-t space-y-2">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Total units:</span>
+                        <span class="font-bold">${totalItems}</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-gray-900">
+                        <span>Est. Subtotal:</span>
+                        <span class="text-brand-600">₹${totalValue.toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+
+            const progressText = document.getElementById('moq-progress-text');
+            const progressBar = document.getElementById('moq-progress-bar');
+            const moqMessage = document.getElementById('checkout-moq-message');
+            const submitBtn = document.getElementById('submit-order-btn');
+
+            const progress = Math.min((totalItems / TOTAL_MOQ) * 100, 100);
+            progressText.innerText = `${totalItems} / ${TOTAL_MOQ} units`;
+            progressBar.style.width = `${progress}%`;
+
+            const valid = totalItems >= TOTAL_MOQ;
+            progressBar.classList.toggle('moq-valid', valid);
+            progressBar.classList.toggle('moq-invalid', !valid);
+
+            if (valid) {
+                moqMessage.innerText = 'MOQ reached. You can place your order.';
+                moqMessage.className = 'text-sm font-semibold text-green-600';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Review & Place Order';
+                submitBtn.className = 'w-full min-h-12 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 transition';
+            } else {
+                const remaining = TOTAL_MOQ - totalItems;
+                moqMessage.innerText = `Add ${remaining} more unit${remaining === 1 ? '' : 's'} to reach the 60-unit MOQ.`;
+                moqMessage.className = 'text-sm font-semibold text-red-600';
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Reach 60 Units to Checkout';
+                submitBtn.className = 'w-full min-h-12 bg-gray-400 text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 transition disabled:cursor-not-allowed';
+            }
+
+            document.getElementById('order-details').value = buildOrderDetails();
+            document.getElementById('total-units').value = totalItems;
+            document.getElementById('estimated-total').value = `₹${totalValue.toFixed(2)}`;
+            document.getElementById('checkout-total').innerText = `₹${totalValue.toFixed(2)}`;
+        }
+
+        async function submitOrder(event) {
+            event.preventDefault();
+
+            const totalUnits = getTotalUnits();
+            if (totalUnits < TOTAL_MOQ) {
+                alert(`Minimum order quantity is ${TOTAL_MOQ} units. Please add ${TOTAL_MOQ - totalUnits} more units.`);
+                return;
+            }
+
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            updateCart();
+
+            const form = event.currentTarget;
+            const submitBtn = document.getElementById('submit-order-btn');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting Order...';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Formspree submission failed');
+
+                // Build a WhatsApp copy of the submitted order before clearing the cart/form.
+                const customerName = document.getElementById('buyer-name').value.trim();
+                const customerPhone = document.getElementById('buyer-phone').value.trim();
+                const customerAddress = document.getElementById('buyer-address').value.trim();
+                const customerNotes = document.getElementById('buyer-notes').value.trim();
+                const orderDetails = buildOrderDetails();
+                const submittedUnits = getTotalUnits();
+                const submittedTotal = getTotalValue();
+
+                const whatsappMessage =
+                    `Hello Shiva Collections, I have just placed a wholesale order through your website.%0A%0A` +
+                    `*Customer:* ${encodeURIComponent(customerName)}%0A` +
+                    `*Phone/WhatsApp:* ${encodeURIComponent(customerPhone)}%0A` +
+                    `*Delivery Address:* ${encodeURIComponent(customerAddress)}%0A` +
+                    `*Total Units:* ${submittedUnits}%0A` +
+                    `*Estimated Total:* ₹${submittedTotal.toFixed(2)}%0A%0A` +
+                    `*Order Details:*%0A${encodeURIComponent(orderDetails)}` +
+                    (customerNotes ? `%0A%0A*Special Instructions:*%0A${encodeURIComponent(customerNotes)}` : '') +
+                    `%0A%0APlease confirm the order, final pricing, colour/design options and dispatch details.`;
+
+                document.getElementById('wa-order-btn').href =
+                    `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+
+                form.reset();
+                cart = [];
+                updateCart();
+
+                document.getElementById('cart-drawer').classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+
+                const success = document.getElementById('order-success');
+                success.classList.remove('hidden');
+                success.classList.add('flex');
+            } catch (error) {
+                console.error(error);
+                alert('We could not submit the order right now. Please try again or contact Shiva Collections on WhatsApp.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                updateCart();
+            }
+        }
+
+        function closeSuccess() {
+            const success = document.getElementById('order-success');
+            success.classList.add('hidden');
+            success.classList.remove('flex');
+        }
+
+        document.getElementById('order-form').addEventListener('submit', submitOrder);
+
+        // Initialize page
+        selectTab('Plain');
+        updateCart();
+    </script>
+</body>
+</html>
